@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <cmath>
 
@@ -9,6 +8,7 @@ class Account{
         double interestRate;
 
     public:
+        Account() : balance(0), interestRate(0) {}
         Account(double balance) : balance(balance), interestRate(0) {}
         Account(double balance, double interestRate) : balance(balance), interestRate(interestRate) {}
 
