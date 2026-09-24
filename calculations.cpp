@@ -4,6 +4,11 @@
 
 using namespace std;
 
+//getValueOfStock(ticker)
+//getTotalValueOfStocks(portfolio)
+//getReturnRateOfPortfolio(portfolio,historicalTimeFrame)
+//check portfolio for more info
+
 
 
 int main(){

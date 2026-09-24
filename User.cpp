@@ -3,8 +3,10 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <fstream>
+#include <filesystem>
 
 using namespace std;
+namespace fs = filesystem;
 using json = nlohmann::json;
 
 struct User{
@@ -14,8 +16,44 @@ struct User{
     RetirementAccount retirement;
     map<string,int> portfolio;
 
-    User(const nlohmann::json &userData);
     User() : checking(), savings(), retirement() {}
+
+    User(const string &filename){
+        fs::path filepath(filename);
+
+        if (!fs::exists(filepath) || !fs::is_regular_file(filepath)){
+            cerr << "Error: invalid file" << endl;
+            return;
+        }
+
+        ifstream fileStream(filepath);
+        if(!fileStream.is_open()){
+            cerr << "Error: failed to open file" << endl;
+            return;
+        }
+        
+        try {
+            json data = json::parse(fileStream);
+
+            name = data["name"];
+
+            checking.setBalance(data["checking"][0]);
+            checking.setInterestRate(data["checking"][1]);
+
+            savings.setBalance(data["savings"][0]);
+            savings.setInterestRate(data["savings"][1]);
+
+            retirement.setBalance(data["retirement"][0]);
+            retirement.setInterestRate(data["retirement"][1]);
+
+            portfolio = data["portfolio"];
+        } catch (const json::parse_error &error){
+            cerr << "JSON parsing error: " << error.what() << endl;
+        }
+
+        
+    }
+    
 
     void save_to_json(const string &filename){
         json output_data;
@@ -38,15 +76,16 @@ struct User{
 };
 
 int main(){
-    User grant;
-    grant.name = "Grant";
-    grant.checking = {100,5};
-    grant.savings = {200,10};
-    grant.retirement = {1000, 0};
-    grant.portfolio = {{"AAPL", 1}, {"gree", 2}};
+    User grant("grant.json");
 
+    cout << grant.checking.getBalance() << endl;
+    grant.checking.setBalance(1000);
+    cout << grant.checking.getBalance() << endl;
     grant.save_to_json("grant.json");
+
 }
+
 //portfolio class with a map that stores tickers? is that necesary? 
-//yep. then make another file that just gets the data needed for the portfolio.
+// then make another file that just gets the data needed for the portfolio.
 //in the cpp file, somehow figure out getting the input data into the json. you can do it.
+//just make iinvald tickers be worth 0. sell button

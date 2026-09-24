@@ -21,6 +21,9 @@ class Account{
         double getInterestRate(){
             return interestRate;
         }
+        void setInterestRate(double rate){
+            interestRate = rate;
+        }
         double calculateInterest(double input, 
             int timeFrame, int inputTimeFrame, int compoundingTimeFrame){
             double bal = balance;
@@ -55,7 +58,7 @@ class CheckingAccount : public Account{
 
 class RetirementAccount : public Account{
     private:
-        double cash;
+        double totalBuyingPower;
         //balance cash plus stock value. We are going to assume all stocks are for retirement.
     public:
         using Account::Account;
@@ -66,13 +69,3 @@ class RetirementAccount : public Account{
         //balance PLUS tf input cash PLUS tf input into stocks
 };
 
-//defaults to adding to a
-void makeTransaction(Account a, int amount){
-    a.setBalance(a.getBalance() + amount);
-}
-
-//from a to b
-void makeTransfer(Account a, Account b, int amount){
-    makeTransaction(a, -amount);
-    makeTransaction(b, amount);
-}
