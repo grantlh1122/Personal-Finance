@@ -1,0 +1,11 @@
+{
+    "name":"Grant",
+    "checking":[100,0],
+    "savings":[2000,4],
+    "retirement":[150000,4],
+    "portfolio": {
+        "a":1,
+        "b":2,
+        "c":5
+    }
+}

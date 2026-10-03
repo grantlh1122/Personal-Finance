@@ -1,4 +1,5 @@
 #include "Account.hpp"
+#include "User.hpp"
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <string>
@@ -9,79 +10,69 @@ using namespace std;
 namespace fs = filesystem;
 using json = nlohmann::json;
 
-struct User{
-    std::string name;
-    CheckingAccount checking;
-    SavingsAccount savings;
-    RetirementAccount retirement;
-    map<string,int> portfolio;
+User::User() : checking(), savings(), retirement() {}
 
-    User() : checking(), savings(), retirement() {}
+User::User(const string &filename){
+    fs::path filepath(filename);
 
-    User(const string &filename){
-        fs::path filepath(filename);
-
-        if (!fs::exists(filepath) || !fs::is_regular_file(filepath)){
-            cerr << "Error: invalid file" << endl;
-            return;
-        }
-
-        ifstream fileStream(filepath);
-        if(!fileStream.is_open()){
-            cerr << "Error: failed to open file" << endl;
-            return;
-        }
-        
-        try {
-            json data = json::parse(fileStream);
-
-            name = data["name"];
-
-            checking.setBalance(data["checking"][0]);
-            checking.setInterestRate(data["checking"][1]);
-
-            savings.setBalance(data["savings"][0]);
-            savings.setInterestRate(data["savings"][1]);
-
-            retirement.setBalance(data["retirement"][0]);
-            retirement.setInterestRate(data["retirement"][1]);
-
-            portfolio = data["portfolio"];
-        } catch (const json::parse_error &error){
-            cerr << "JSON parsing error: " << error.what() << endl;
-        }
-
-        
+    if (!fs::exists(filepath) || !fs::is_regular_file(filepath)){
+        cerr << "Error: invalid file" << endl;
+        return;
     }
+
+    ifstream fileStream(filepath);
+    if(!fileStream.is_open()){
+        cerr << "Error: failed to open file" << endl;
+        return;
+    }
+
+    try {
+        json data = json::parse(fileStream);
+
+        name = data["name"];
+
+        checking.setBalance(data["checking"][0]);
+        checking.setInterestRate(data["checking"][1]);
+
+        savings.setBalance(data["savings"][0]);
+        savings.setInterestRate(data["savings"][1]);
+
+        retirement.setBalance(data["retirement"][0]);
+        retirement.setInterestRate(data["retirement"][1]);
+
+        portfolio = data["portfolio"];
+    } catch (const json::parse_error &error){
+        cerr << "JSON parsing error: " << error.what() << endl;
+    }
+}
     
 
-    void save_to_json(const string &filename){
-        json output_data;
-        output_data["name"] = name;
-        output_data["checking"] = {checking.getBalance(), checking.getInterestRate()};
-        output_data["savings"] = {savings.getBalance(), savings.getInterestRate()};
-        output_data["retirement"] = {retirement.getBalance(), retirement.getInterestRate()};
-        output_data["portfolio"] = portfolio;
+void User::save_to_json(const string &filename){
+    json output_data;
+    output_data["name"] = name;
+    output_data["checking"] = {checking.getBalance(), checking.getInterestRate()};
+    output_data["savings"] = {savings.getBalance(), savings.getInterestRate()};
+    output_data["retirement"] = {retirement.getBalance(), retirement.getInterestRate()};
+    output_data["portfolio"] = portfolio;
 
 
-        ofstream file(filename);
-        if(file.is_open()){
-            file << output_data.dump(4);
-            file.close();
-            cout << "Success!" << endl;
-        } else {
-            cerr << "Error" << endl;
-        }
+    ofstream file(filename);
+    if(file.is_open()){
+        file << output_data.dump(4);
+        file.close();
+        cout << "Success!" << endl;
+    } else {
+        cerr << "Error" << endl;
     }
-};
+}
 
 int main(){
-    User grant("grant.json");
+    //User grant("grant.json");
 
-    cout << grant.checking.getBalance() << endl;
-    grant.checking.setBalance(1000);
-    cout << grant.checking.getBalance() << endl;
-    grant.save_to_json("grant.json");
+    //cout << grant.checking.getBalance() << endl;
+    //grant.checking.setBalance(1000);
+    //cout << grant.checking.getBalance() << endl;
+    //grant.save_to_json("grant.json");
 
 }
 

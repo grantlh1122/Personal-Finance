@@ -4,16 +4,21 @@
 #include <string>
 
 class User{
-    private: 
+    
+    public:
+
+        User() : checking(), savings(), retirement() {}
+        User(const std::string &filename);
+
+        //saves account data to json file
+        void save_to_json(const std::string &filename);
+        
+    private:
         std::string name;
         CheckingAccount checking;
         SavingsAccount savings;
         RetirementAccount retirement;
-        //portfolio
-    public:
-        User(const nlohmann::json&userData);
-        void save_to_json(const std::string &filename);
-        
+        std::map<std::string,int> portfolio;
 };
 
 //portfolio class with a map that stores tickers? is that necesary? 

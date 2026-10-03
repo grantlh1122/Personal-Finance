@@ -1,0 +1,19 @@
+{
+    "checking": [
+        1000.0,
+        5.0
+    ],
+    "name": "Grant",
+    "portfolio": {
+        "AAPL": 1,
+        "gree": 2
+    },
+    "retirement": [
+        1000.0,
+        0.0
+    ],
+    "savings": [
+        200.0,
+        10.0
+    ]
+}
