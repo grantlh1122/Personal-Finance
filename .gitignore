@@ -1,1 +1,1 @@
-.vscode/ *.exe *.json
+.vscode/ *.exe *.json *.venv
