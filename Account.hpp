@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 
+#pragma once
 
 class Account{
     public:
@@ -13,12 +14,11 @@ class Account{
         double getInterestRate();
         void setInterestRate(double rate);
 
-        double calculateInterest(double input, 
-            int timeFrame, int inputTimeFrame, int compoundingTimeFrame);
     private:
         double balance;
         double interestRate;
 };
+
 
 
 class SavingsAccount : public Account{

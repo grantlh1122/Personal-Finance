@@ -44,6 +44,7 @@ User::User(const string &filename){
     } catch (const json::parse_error &error){
         cerr << "JSON parsing error: " << error.what() << endl;
     }
+    
 }
     
 
@@ -66,14 +67,8 @@ void User::save_to_json(const string &filename){
     }
 }
 
-int main(){
-    //User grant("grant.json");
-
-    //cout << grant.checking.getBalance() << endl;
-    //grant.checking.setBalance(1000);
-    //cout << grant.checking.getBalance() << endl;
-    //grant.save_to_json("grant.json");
-
+std::map<std::string, int> User::getPortfolio(){
+    return portfolio;
 }
 
 //portfolio class with a map that stores tickers? is that necesary? 

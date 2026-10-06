@@ -6,7 +6,7 @@
     "name": "Grant",
     "portfolio": {
         "AAPL": 1,
-        "gree": 2
+        "GOOG": 5
     },
     "retirement": [
         1000.0,
