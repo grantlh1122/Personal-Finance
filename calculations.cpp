@@ -76,17 +76,3 @@ double calculatePortfolioGrowth(const map<string, int> &portfolio, double input,
     return calculateCompounding(startingBalance, input, calculateAverageYearlyReturn(portfolio, historicalYears), futureYears * 365, inputTimeFrame, 365);
 }
 
-//move around functions to be more clear. this might better be a portfolio file.
-
-int main(){
-    User Grant("grant.json");
-
-    //for (const auto &[ticker, price] : getValueOfStocks(Grant.getPortfolio(), 0))
-    //    cout << ticker << ": " << price << endl;
-    //cout << calculatePortfolioValue(Grant.getPortfolio(), 0) << endl;
-    //cout << calculatePortfolioValue(Grant.getPortfolio(), 5) << endl;
-
-    //cout << calculateAverageYearlyReturn(Grant.getPortfolio(), 5) << endl;
-    cout << calculatePortfolioGrowth(Grant.getPortfolio(), 0, 0, 5, 30) << endl;
-
-}

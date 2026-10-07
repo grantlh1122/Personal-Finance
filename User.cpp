@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
+#include <stdexcept>
 
 using namespace std;
 namespace fs = filesystem;
@@ -16,14 +17,12 @@ User::User(const string &filename){
     fs::path filepath(filename);
 
     if (!fs::exists(filepath) || !fs::is_regular_file(filepath)){
-        cerr << "Error: invalid file" << endl;
-        return;
+        throw runtime_error("Error: invalid file");
     }
 
     ifstream fileStream(filepath);
     if(!fileStream.is_open()){
-        cerr << "Error: failed to open file" << endl;
-        return;
+        throw runtime_error("Error: failed to open file");
     }
 
     try {
@@ -42,7 +41,7 @@ User::User(const string &filename){
 
         portfolio = data["portfolio"];
     } catch (const json::parse_error &error){
-        cerr << "JSON parsing error: " << error.what() << endl;
+        throw runtime_error(string("JSON parsing error: ") + error.what());
     }
     
 }
@@ -70,8 +69,3 @@ void User::save_to_json(const string &filename){
 std::map<std::string, int> User::getPortfolio(){
     return portfolio;
 }
-
-//portfolio class with a map that stores tickers? is that necesary? 
-// then make another file that just gets the data needed for the portfolio.
-//in the cpp file, somehow figure out getting the input data into the json. you can do it.
-//just make iinvald tickers be worth 0. sell button

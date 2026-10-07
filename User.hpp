@@ -25,7 +25,3 @@ class User{
         std::map<std::string,int> portfolio;
         
 };
-
-//portfolio class with a map that stores tickers? is that necesary? 
-//yep. then make another file that just gets the data needed for the portfolio.
-//in the cpp file, somehow figure out getting the input data into the json. you can do it.
