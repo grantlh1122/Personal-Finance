@@ -76,3 +76,15 @@ double calculatePortfolioGrowth(const map<string, int> &portfolio, double input,
     return calculateCompounding(startingBalance, input, calculateAverageYearlyReturn(portfolio, historicalYears), futureYears * 365, inputTimeFrame, 365);
 }
 
+bool isNumber(const string &a){
+    if(a.empty()){
+        return false;
+    }
+
+    for(char c : a){
+        if(!isdigit(c)){
+            return false;
+        }
+    }
+    return true;
+}

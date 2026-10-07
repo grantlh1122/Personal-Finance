@@ -10,7 +10,9 @@ int main(){
 
     cout << "Type 1 to import an account via json, and 2 to create a new account." << endl;
     cin >> userChoice;
-    while (stoi(userChoice) != 1 && stoi(userChoice) != 2){
+
+
+    while (!isNumber(userChoice) || (stoi(userChoice) != 1 && stoi(userChoice) != 2)){
         cout << "Invalid choice. Type 1 to import an account via json, and 2 to create a new account." << endl;
         cin >> userChoice; 
     }
@@ -29,5 +31,8 @@ int main(){
                 cout << e.what() << " Try again." << endl;
             }
         }
+    }
+    if(stoi(userChoice) == 2) {
+        
     }
 }
