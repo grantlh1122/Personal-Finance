@@ -3,29 +3,34 @@
 #include "Account.hpp"
 
 
-//defaults to adding to a
-void makeTransaction(Account a, int amount){
+// Adds amount to account a (positive for deposit, negative for withdrawal)
+void makeTransaction(Account &a, double amount){
     a.setBalance(a.getBalance() + amount);
 }
 
-//from a to b
-void makeTransfer(Account a, Account b, int amount){
+// Transfers amount from a to b with balance check
+bool makeTransfer(Account &a, Account &b, double amount){
+    if (a.getBalance() < amount) {
+        return false;
+    }
     makeTransaction(a, -amount);
     makeTransaction(b, amount);
+    return true;
 }
 
 
-double Account::getBalance(){
-            return balance;
-        }
+double Account::getBalance() const {
+    return balance;
+}
+
 void Account::setBalance(double amount){
     balance = amount;
-    //implement error check
 }
-double Account::getInterestRate(){
+
+double Account::getInterestRate() const {
     return interestRate;
 }
+
 void Account::setInterestRate(double rate){
     interestRate = rate;
-    //implement error check
 }

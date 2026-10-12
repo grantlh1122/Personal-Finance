@@ -9,15 +9,18 @@ class Account{
         Account(double balance) : balance(balance), interestRate(0) {}
         Account(double balance, double interestRate) : balance(balance), interestRate(interestRate) {}
 
-        double getBalance();
+        double getBalance() const;
         void setBalance(double amount);
-        double getInterestRate();
+        double getInterestRate() const;
         void setInterestRate(double rate);
 
     private:
         double balance;
         double interestRate;
 };
+
+void makeTransaction(Account &a, double amount);
+bool makeTransfer(Account &a, Account &b, double amount);
 
 
 
