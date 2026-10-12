@@ -8,17 +8,17 @@ The application offers an interactive CLI for managing multiple bank accounts, t
 
 ## Features
 
-### 🏦 Account & Cash Management
+### Account & Cash Management
 - **Account Tracking**: Independent balances and interest rates for **Checking**, **Savings**, and **Retirement Cash** accounts.
 - **Safe Transfers & Transactions**: Move funds between any account with automatic balance validation to prevent overdrafts.
 - **Persistent Profiles**: Save and load complete user profiles to and from clean JSON schemas.
 
-### 📈 Investment Portfolio & Live Ticker Data
+### Investment Portfolio & Live Ticker Data
 - **Stock Holdings**: Track ticker symbols and share quantities.
 - **Live Market Pricing**: Integrates with Yahoo Finance via Python (`prices.py`) to query real-time prices and historical valuations.
 - **Dynamic Net Worth**: Combines cash balances and live stock valuations into a single estimated net worth overview.
 
-### 🔮 Advanced Retirement Forecasting
+### Advanced Retirement Forecasting
 - **Basic Growth Planner (`plan`)**:
   - Computes historical Compound Annual Growth Rate (CAGR) from your portfolio's performance.
   - Projects future compounding based on custom periodic contribution amounts, contribution frequencies, and investment horizons.
