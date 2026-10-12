@@ -26,7 +26,7 @@ The application offers an interactive CLI for managing multiple bank accounts, t
   - Simulates thousands of randomized market paths (e.g., 10,000 runs) modeling annual volatility and market returns.
   - Outputs statistical distributions and calculates probability of meeting a specific retirement goal (e.g. $1,000,000 target).
 
-### 🛠️ Developer & Testing Tooling
+### Developer & Testing Tooling
 - **AddressSanitizer (ASan) & UBSan**: Built-in sanitizer configurations to ensure memory safety, zero leaks, and zero undefined behavior.
 - **GoogleTest Suite**: 19 unit tests covering account operations, JSON serialization, financial calculations, and Monte Carlo simulations.
 - **Makefile**: Pre-configured build and test automation.
