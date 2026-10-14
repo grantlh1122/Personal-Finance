@@ -12,9 +12,8 @@
 #define CALCULATIONS_NO_MAIN
 #include "../calculations.cpp"
 
-// =========================================================================
-// 1. Account Unit Tests
-// =========================================================================
+
+// Account Unit Tests
 
 TEST(AccountTest, DefaultConstructor) {
     CheckingAccount ch;
@@ -62,9 +61,9 @@ TEST(AccountTest, MakeTransferInsufficientFunds) {
     EXPECT_DOUBLE_EQ(to.getBalance(), 500.0);
 }
 
-// =========================================================================
-// 2. User & Portfolio Unit Tests
-// =========================================================================
+
+// User & Portfolio Unit Tests
+
 
 TEST(UserTest, UserConstructorAndGetters) {
     CheckingAccount ch(1000.0, 1.0);
@@ -161,9 +160,8 @@ TEST(UserTest, JsonSerializationRoundTrip) {
     std::remove(tmpFile.c_str());
 }
 
-// =========================================================================
-// 3. Calculation & Helper Tests
-// =========================================================================
+
+// Calculation & Helper Tests
 
 TEST(CalculationsTest, IsNumberValidation) {
     EXPECT_TRUE(isNumber("12345"));
@@ -192,9 +190,9 @@ TEST(CalculationsTest, CompoundingZeroInputSafety) {
     EXPECT_GT(res, 1000.0);
 }
 
-// =========================================================================
-// 4. Monte Carlo Simulation Tests
-// =========================================================================
+
+// Monte Carlo Tests
+
 
 TEST(MonteCarloTest, SimulationCountAndBounds) {
     const int numSims = 1500;
@@ -257,31 +255,9 @@ TEST(MonteCarloTest, HistoricalVolatilityFallback) {
 // Main Entry Point
 // =========================================================================
 
-#if __has_include(<gtest/gtest.h>)
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-#else
-int main() {
-    std::cout << "\n=======================================================\n";
-    std::cout << "           RUNNING FINANCE TEST SUITE (WITH ASAN)       \n";
-    std::cout << "=======================================================\n";
-    std::cout << "[==========] Running " << getTestRegistry().size() << " tests.\n";
-    int passed = 0;
-    for (const auto &t : getTestRegistry()) {
-        std::cout << "[ RUN      ] " << t.suite << "." << t.name << "\n";
-        int failsBefore = gFailedAssertions;
-        t.fn();
-        if (gFailedAssertions == failsBefore) {
-            std::cout << "[       OK ] " << t.suite << "." << t.name << "\n";
-            passed++;
-        } else {
-            std::cout << "[  FAILED  ] " << t.suite << "." << t.name << "\n";
-        }
-    }
-    std::cout << "[==========] " << passed << " / " << getTestRegistry().size() << " tests passed.\n";
-    std::cout << "=======================================================\n\n";
-    return (passed == (int)getTestRegistry().size() && gFailedAssertions == 0) ? 0 : 1;
-}
-#endif
+
