@@ -631,6 +631,4 @@ int main(int argc, char* argv[]) {
             cout << "Unknown command '" << tokens[0] << "'. Type 'help' to see all available commands." << endl;
         }
     }
-
-    return 0;
 }
